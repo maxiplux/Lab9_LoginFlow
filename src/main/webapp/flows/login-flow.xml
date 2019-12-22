@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:schemaLocation="http://www.springframework.org/schema/webflow
+http://www.springframework.org/schema/webflow/spring-webflow-2.4.xsd">
+
+	<var name="login" class="edu.mum.domain.Login" />
+
+	<view-state id="displayLoginView" view="jsp/login.jsp" model="login">
+		<transition on="performLogin" to="performLoginAction" />
+	</view-state>
+
+	<action-state id="performLoginAction">
+
+<!--		if you are checking this homework, please pay attetion to bean name
+		the most important thing here is , spring define the bean name with firts letter lower case-->
+		<evaluate expression="webFlowLoginComponent.verify(login)" />
+		<transition on="true" to="success"/>
+		<transition on="false" to="failure"/>
+	</action-state>
+
+	<view-state id="success" view="jsp/success.jsp" model="login"/>
+	<view-state id="failure" view="jsp/failure.jsp"/>
+</flow>
